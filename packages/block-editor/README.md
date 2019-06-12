@@ -387,6 +387,10 @@ _Type_
 
 -   `Object` 
 
+<a name="transformStyles" href="#transformStyles">#</a> **transformStyles**
+
+Internal dependencies
+
 <a name="URLInput" href="#URLInput">#</a> **URLInput**
 
 _Related_
