@@ -27,22 +27,48 @@
 	}
 }
 
+// This is the preview "scaling container".
 .block-editor-block-styles__item-preview {
 	outline: $border-width solid transparent; // Shown in Windows High Contrast mode.
-	border: 1px solid rgba($dark-gray-900, 0.2);
-	overflow: hidden;
 	padding: 0;
-	text-align: initial;
+	border: $border-width solid rgba($dark-gray-900, 0.2);
 	border-radius: $radius-round-rectangle;
+	overflow: hidden;
+	text-align: initial;
 	display: flex;
-	height: 60px;
 	background: $white;
+
+	// Provide specific aspect ratio. It should match the aspect ratio of the dimensions of the preview.
+	padding-top: 75%; // 4:3
+	position: relative;
+
+	//height: 60px;
 
 	// Actual preview contents.
 	.block-editor-block-preview__content {
-		transform: scale(0.7);
+		/*transform: scale(0.7);
 		transform-origin: center center;
-		width: 100%;
+		width: 100%;*/
+
+		// Position above the padding.
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		// Important to set the origin.
+		transform-origin: top left;
+
+		// In order for the scaling to be perfect, it needs explicit dimensions.
+		// These dimensions should match the aspect ratio used across the project, including the CSS and the JS.
+		// A 4:3 aspect ratio is used in this example.
+		width: 400px;
+		height: 300px;
+
+		// The transform scale is calculated based on the source dimensions and the scaled size.
+		// In this case, we set the source dimensions to 400x300, and the preview is shown at 124px width.
+		// So the scale is Math.min( 124 / 400 ) = 0.31.
+		// Todo: calculate this in the component itself, and extract nice variables.
+		transform: scale(0.31);
 
 		// Unset some of the styles that might be inherited from the editor style.
 		margin: 0;
