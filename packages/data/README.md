@@ -400,7 +400,7 @@ You can read more about the react context api here:
 
 _Usage_
 
-````js
+```js
 const {
   RegistryProvider,
   RegistryConsumer,
@@ -421,6 +421,7 @@ const App = ( { props } ) => {
     </RegistryConsumer>
   </RegistryProvider>
 }
+```
 
 <a name="RegistryProvider" href="#RegistryProvider">#</a> **RegistryProvider**
 
