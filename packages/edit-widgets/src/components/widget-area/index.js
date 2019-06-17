@@ -11,10 +11,17 @@ import { uploadMedia } from '@wordpress/media-utils';
 import { compose } from '@wordpress/compose';
 import { Panel, PanelBody } from '@wordpress/components';
 import {
+	BlockInspector,
 	BlockEditorProvider,
 	BlockList,
 } from '@wordpress/block-editor';
 import { withDispatch, withSelect } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import Sidebar from '../sidebar';
+import SelectionObserver from './selection-observer';
 
 function getBlockEditorSettings( blockEditorSettings, hasUploadPermissions ) {
 	if ( ! hasUploadPermissions ) {
@@ -36,10 +43,12 @@ function getBlockEditorSettings( blockEditorSettings, hasUploadPermissions ) {
 function WidgetArea( {
 	blockEditorSettings,
 	blocks,
+	hasUploadPermissions,
 	initialOpen,
+	isSelectedArea,
+	onBlockSelected,
 	updateBlocks,
 	widgetAreaName,
-	hasUploadPermissions,
 } ) {
 	const settings = useMemo(
 		() => getBlockEditorSettings( blockEditorSettings, hasUploadPermissions ),
@@ -57,6 +66,13 @@ function WidgetArea( {
 					onChange={ updateBlocks }
 					settings={ settings }
 				>
+					<SelectionObserver
+						isSelectedArea={ isSelectedArea }
+						onBlockSelected={ onBlockSelected }
+					/>
+					<Sidebar.Inspector>
+						<BlockInspector showNoBlockSelectedMessage={ false } />
+					</Sidebar.Inspector>
 					<BlockList />
 				</BlockEditorProvider>
 			</PanelBody>
